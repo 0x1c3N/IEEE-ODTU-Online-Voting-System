@@ -1,0 +1,173 @@
+{% load static %}
+{% if request.user.is_authenticated %}
+<!DOCTYPE html>
+<html lang="en" class="no-js" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IEEE ODTÜ - Seçim Ekranı</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="/../static/dist/css/detail.css">
+	<script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <link rel="icon" href="../../static/dist/images/logo_sade.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<style>
+    input{
+        background:#097dea;background:linear-gradient(65deg, #0270D7 0, #0F8AFD 100%);
+        font-weight:600;line-height:16px;background-color:#242830;color:#fff !important;border:none;padding:16px 32px;white-space:nowrap
+    }
+</style>
+<body class="is-boxed has-animations">
+    <div class="body-wrap">
+        <header class="site-header">
+            <div class="container">
+                <div class="site-header-inner">
+                    <div class="brand header-brand">
+                        <h1 class="m-0">
+                            <a href="/">
+								<img class="header-logo-image" src="../../static/dist/images/logovec.png" style="width: 250px;" alt="Logo">
+                            </a>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="row">
+                <!-- Powered and Signed by Batuhan Irmak and Cengizhan Deveci  -->
+                <div class="col-md-7 offset-md-3" style="display: block;">
+                    <center><h1>{{question.question_text}}</h1></center>
+                        <br>
+
+                    {% if error_message %} <p style="color: white;"><strong>{{error_message}}</strong></p> {% endif %}
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <p  {% if message.tags %} style="color: white;" class=" {{ message.tags }} " {% endif %}><strong> {{ message }} </strong> </p>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    <form action= "{% url 'polls:vote' question.id %}" method="post">
+                        {% csrf_token %}
+
+                        <div>
+                            {% for choice in question.choice_set.all %}
+
+                            <!-- Powered and Signed by Batuhan Irmak and Cengizhan Deveci  -->
+                            {% if choice.ikinci  %}
+                                <div style="float:left; padding:9px;margin-left: 115px;">
+                            {% else %}
+                                <div style="float:left; padding:9px;">
+                            {% endif %}
+
+                                <img style="padding-bottom: 7px;" for="choice{{forloop.counter}}" src="/static/{{choice.imagename}}" height="157" width="150"/>
+                                <br>
+
+                                <center>
+                                <input type="checkbox" name="choice{{forloop.counter}}" id="choice{{forloop.counter}}" value= "{{choice.id}}"/>
+
+                                <label style="color: lightblue;" for="choice{{forloop.counter}}"> {{choice.choice_text}} </label></center>
+                                <br>
+                                <input type="checkbox" name="choicenegative{{forloop.counter}}" id="choicenegative{{forloop.counter}}" value= "{{choice.id}}"/>
+                                <label style="color: lightblue;" for="choicenegative{{forloop.counter}}">Uygun Bulmuyorum</label>
+
+                                {% if choice.birinci %}
+                                    <li style="color: lightblue;" for="choice{{forloop.counter}}"> {{choice.birinci}} </li>
+                                {% endif %}
+                                {% if choice.ikinci %}
+                                    <li style="color: lightblue;" for="choice{{forloop.counter}}"> {{choice.ikinci}} </li>
+                                {% endif %}
+                                {% if choice.ucuncu %}
+                                    <li style="color: lightblue;" for="choice{{forloop.counter}}"> {{choice.ucuncu}} </li>
+                                {% endif %}
+                                {% if choice.dorduncu %}
+                                    <li style="color: lightblue;" for="choice{{forloop.counter}}"> {{choice.dorduncu}} </li>
+                                {% endif %}
+                                {% if choice.besinci %}
+                                    <li style="color: lightblue;" for="choice{{forloop.counter}}"> {{choice.besinci}} </li>
+                                {% endif %}
+                                {% if choice.altinci %}
+                                    <li style="color: lightblue;" for="choice{{forloop.counter}}"> {{choice.altinci}} </li>
+                                {% endif %}
+                                {% if choice.yedinci %}
+                                    <li style="color: lightblue;" for="choice{{forloop.counter}}"> {{choice.yedinci}} </li>
+                                {% endif %}
+
+
+                                <a>&nbsp;&nbsp;&nbsp;</a>
+
+                            </div>
+
+                            {%endfor %}
+
+                        </div>
+
+                        <br style="clear:both">
+                        <br>
+
+                        <center><input style="float:inline-start;" type="submit" value="Oy Kullan" onclick="return checkboxes()"></center>
+
+
+
+                    </form>
+                </div>
+            </div>
+
+
+
+        </main>
+<!-- Powered and Signed by Batuhan Irmak and Cengizhan Deveci  -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="site-footer-inner">
+                    <div class="footer-copyright">&copy; 2020 IEEE ODTÜ, All Rights Reserved</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../../static/dist/js/main.min.js"></script>
+<script async src='https://www.googletagmanager.com/gtag/js?id=UA-125021779-1'></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-125021779-1', { 'anonymize_ip': true });</script>
+<script> function checkboxes()
+    {
+     var inputElems = document.getElementsByTagName("input"),
+      count = 0;
+
+      for (var i=0; i<inputElems.length; i++) {
+         if (inputElems[i].type == "checkbox" && inputElems[i].checked == true){
+            count++;
+         }
+      }
+      if (count== 0){
+          var onay = confirm('Boş oy atmaktasınız. Emin misiniz?');
+          if (onay == true) {
+              return true;
+          } else {
+              return false;
+          }
+      } else{
+          var onay = confirm(count + ' kadar seçim yaptınız. Seçiminizi onaylıyor musunuz?');
+          if (onay == true) {
+              return true;
+          } else {
+              return false;
+          }
+      }
+
+   }</script>
+   <!-- Powered and Signed by Batuhan Irmak and Cengizhan Deveci  -->
+</body>
+
+</html>
+
+
+{% else %}
+<head>
+    <meta http-equiv="refresh" content="0;url=/user/login" />
+</head>
+
+{% endif %}

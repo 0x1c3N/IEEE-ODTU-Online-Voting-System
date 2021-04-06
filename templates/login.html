@@ -1,0 +1,100 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% if request.user.is_authenticated %}
+
+<head>
+    <meta http-equiv="refresh" content="0;url=/" />
+</head>
+
+{% endif %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	<link rel="stylesheet" href="/static/dist/css/a.css">
+	
+</head>
+
+
+
+<body class="is-boxed has-animations">
+	
+
+	<div class="body-wrap">
+        <header class="site-header">
+            <div class="container">
+                <div class="site-header-inner">
+                    <div class="brand header-brand">
+                        <h1 class="m-0">
+							<a href="/">
+								<img class="header-logo-image" src="../../static/dist/images/logovec.png" style="width: 250px;" alt="Logo">
+                            </a>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+
+
+			<div class="limiter">
+				<div class="container-login100">
+
+
+					<div class="wrap-login100 p-t-30 p-b-50">
+
+						{% if messages %}
+							<ul class="messages">
+								{% for message in messages %}
+								<li  {% if message.tags %} style="color:white" class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+
+						<span class="login100-form-title p-b-41">
+							Giriş Yap
+						</span>
+
+
+						<form method = "post" style="color:white">
+							{% csrf_token %}
+
+							{{form|crispy}}
+							<br>
+							<center><button style="background-color:#0080ff;color:white" type = "submit" class = "btn">Giriş Yap</button></center>
+
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div id="dropDownSelect1"></div>
+
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="site-footer-inner">
+                    <div class="footer-copyright">&copy; 2020 IEEE ODTÜ, All Rights Reserved</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+	<script src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/static/vendor/bootstrap/js/popper.js"></script>
+	<script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/static/js/main.js"></script>
+
+</body>
+
+
+</html>
