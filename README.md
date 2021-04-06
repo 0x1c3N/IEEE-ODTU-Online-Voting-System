@@ -1,4 +1,4 @@
 # IEEE-ODTU-Online-Voting-System
 
 
-By Batuhan Irmak and Cengizhan Deveci
+Created By Batuhan IRMAK and Cengizhan DEVECİ for IEEE ODTU
